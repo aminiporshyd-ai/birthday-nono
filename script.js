@@ -1,27 +1,47 @@
 const correctPassword = "14041214";
 
+const passwordBox = document.getElementById("passwordBox");
+const giftBox = document.getElementById("giftBox");
+
 const passwordInput = document.getElementById("passwordInput");
 const enterButton = document.getElementById("enterButton");
 const errorMessage = document.getElementById("errorMessage");
 
-enterButton.addEventListener("click", function () {
-    const enteredPassword = passwordInput.value;
+function openGift() {
+    passwordBox.classList.add("hide");
+
+    setTimeout(() => {
+        giftBox.classList.add("show");
+    }, 500);
+}
+
+function checkPassword() {
+    const enteredPassword = passwordInput.value.trim();
 
     if (enteredPassword === correctPassword) {
-        errorMessage.textContent = "تم فتح الهدية ❤️";
 
-        setTimeout(function () {
-            alert("هله هله اب احله قمرررر ❤️");
-        }, 300);
+        errorMessage.textContent = "";
+
+        passwordInput.disabled = true;
+        enterButton.disabled = true;
+
+        openGift();
+
     } else {
-        errorMessage.textContent = "الرمز غير صحيح، حاولي مرة أخرى ";
+
+        errorMessage.textContent =
+            "الرمز غلط جربی بعد مرههه ❤️";
+
         passwordInput.value = "";
+
         passwordInput.focus();
     }
-});
+}
 
-passwordInput.addEventListener("keydown", function (event) {
+enterButton.addEventListener("click", checkPassword);
+
+passwordInput.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
-        enterButton.click();
+        checkPassword();
     }
 });
